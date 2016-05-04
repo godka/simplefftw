@@ -82,9 +82,8 @@ int _tmain(int argc, _TCHAR* argv[])
 	auto d0 = 30;
 	for (auto i = 0; i < height; i++){
 		for (auto j = 0; j < width; j++){
-			//complex<double> _complex(fft[i * width + j][0], fft[i * width + j][1]);
 			auto d = pow(j - n2, 2) + pow(i - n1, 2);
-			auto h = 1 - exp(-d / (2 * (d0 ^ 2)));
+			auto h = 1 - exp(-d / (2 * pow(d0, 2)));
 			h = 0.5 + 0.75*h;
 			fft[i * width + j][0] *= h;
 			fft[i * width + j][1] *= h;
@@ -106,7 +105,7 @@ int _tmain(int argc, _TCHAR* argv[])
 	for (i = 0, k = 0; i < height; ++i)
 		for (j = 0; j < width; ++j)
 			img_ifft_data[i * step + j] = (uchar) ifft[k++][0];
-
+	
 	/* display images */
 	cvNamedWindow("original_image", CV_WINDOW_AUTOSIZE);
 	cvNamedWindow("IFFT", CV_WINDOW_AUTOSIZE);
